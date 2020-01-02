@@ -1,3 +1,5 @@
+import { easeInQuad } from './easings';
+
 let rAF = window.requestAnimationFrame;
 
 const leaper = () => {
@@ -6,22 +8,83 @@ const leaper = () => {
 
   let start;
   let stop;
-
-  let duration;
-
+  
+  let offset;
   let easing;
 
-  let elapsed;
+  let distance;
+  let duration;
+
+  let timeStart;
+  let timeElapsed;
+
+  let next;
 
   function getLocation() {
     return window.scrollY || window.pageYOffset;
   }
 
-  // public api
-  function api({ target, opts = {} }) {
-    duration = opts.duration || 1000;
+  function getTopOffset( element ) {
+    return element.getBoundingClientRect().top + start;
   }
 
+  function loop( now ) {
+
+    // store time started if not already started
+    if ( !timeStart ) {
+      timeStart = now;
+    }
+
+    // determine time spent scrolling so far
+    timeElapsed = now - timeStart;
+
+    // calculate next scroll position
+    next = easing( timeElapsed, start, distance, duration );
+
+    // scroll to it
+    window.scrollTo( 0, next );
+    
+    // check progress
+    timeElapsed < duration
+      ? rAF( loop )
+      : done();
+  }
+
+  function done() {
+    // reset timer
+    timeStart = false;
+  }
+
+  // public api
+  function api( target, opts = {} ) {
+    // set some defaults
+    duration = opts.duration || 1000;
+    easing   = opts.easing   || easeInQuad;
+    offset   = opts.offset   || 0;
+
+    // cache starting position
+    start = getLocation();
+
+    // resolve target
+    switch ( typeof target ) {
+      case 'number':
+        element = undefined;
+        stop = top + target;
+        break;
+      
+      case 'string':
+        element = document.querySelector( target );
+        console.log(element)
+        stop = getTopOffset( element );
+        break;
+    }
+
+    // resolve scroll distance, accounting for offset
+    distance = stop - start + offset;
+
+    // start the loop
+    rAF( loop );
+  }
 
   return api;
 

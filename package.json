@@ -4,6 +4,7 @@
   "description": "A (tiny) vanilla javascript smooth scrolling library",
   "source": "src/leaper.js",
   "main": "dist/leaper.js",
+  "module": "dist/leaper.js",
   "scripts": {
     "build": "microbundle -f iife",
     "dev": "microbundle watch -f iife"
