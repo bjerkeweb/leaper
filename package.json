@@ -5,8 +5,8 @@
   "source": "src/leaper.js",
   "main": "dist/leaper.js",
   "scripts": {
-    "build": "microbundle -f cjs",
-    "dev": "microbundle watch -f cjs"
+    "build": "microbundle -f iife",
+    "dev": "microbundle watch -f iife"
   },
   "repository": {
     "type": "git",
