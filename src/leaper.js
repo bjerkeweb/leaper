@@ -80,7 +80,7 @@ const leaper = () => {
     switch ( typeof target ) {
       case 'number':
         element = undefined;
-        stop = top + target;
+        stop = start + target;
         break;
       
       case 'string':
