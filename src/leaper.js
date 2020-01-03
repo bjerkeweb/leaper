@@ -20,6 +20,8 @@ const leaper = () => {
 
   let next;
 
+  let callback;
+
   function getLocation() {
     return window.scrollY || window.pageYOffset;
   }
@@ -53,7 +55,12 @@ const leaper = () => {
   function done() {
     // account for rAF rounding inaccuracies
     window.scrollTo(0, start + distance);
-    
+
+    // fire callback if it exists
+    if ( typeof callback === 'function' ) {
+      callback();
+    }
+
     // reset timer
     timeStart = false;
   }
@@ -64,6 +71,7 @@ const leaper = () => {
     duration = opts.duration || 1000;
     easing   = opts.easing   || easeInQuad;
     offset   = opts.offset   || 0;
+    callback = opts.callback || undefined;
 
     // cache starting position
     start = getLocation();
