@@ -51,6 +51,9 @@ const leaper = () => {
   }
 
   function done() {
+    // account for rAF rounding inaccuracies
+    window.scrollTo(0, start + distance);
+    
     // reset timer
     timeStart = false;
   }
@@ -74,7 +77,6 @@ const leaper = () => {
       
       case 'string':
         element = document.querySelector( target );
-        console.log(element)
         stop = getTopOffset( element );
         break;
     }
@@ -90,6 +92,4 @@ const leaper = () => {
 
 }
 
-let singleton = leaper();
-
-export default singleton;
+export default leaper();
