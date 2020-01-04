@@ -52,3 +52,6 @@ leap(-200);
 ## Browser Support
 
 Leaper relies on the [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) API, which is [supported in all modern browsers](https://caniuse.com/#feat=requestanimationframe). If you need to support an older browser, consider adding a pollyfil.
+
+## License
+[MIT](https://opensource.org/licenses/MIT) &copy;2020 John Bjerke
