@@ -16,7 +16,7 @@ import leap from 'leaper';
 ```
 
 ### Call
-Leaper exports a single instance, so all you need to do is pass a target selector. The instance can be called multiple times
+Leaper automatically exports a single instance, so all you need to do is pass a target selector. The instance can be called multiple times
 
 ```es6
 leap('.target');
@@ -34,8 +34,10 @@ leap('.target', {
 });
 ```
 
-### Target
-To scroll to a DOM element on the page, pass a valid css selector. To scroll a fixed amount *from the current position*, pass an integer.
+### `target` (required)
+Type: `string` | `integer`
+
+To scroll to a DOM element on the page, pass a valid css selector. To scroll a fixed pixel amount *from the current position*, pass an integer.
 ```es6
 // scroll to DOM element
 leap('.target-selector')
@@ -48,6 +50,33 @@ leap(200);
 // scroll up by 200px
 leap(-200);
 ```
+
+### `offset`
+Type: `integer`<br>
+Default: `0`
+
+To offset final scroll position by a fixed pixel amount, pass a positive or negative integer
+
+```es6
+// finish scroll 20px past target
+leap('.target', {offset: 20});
+
+// finish scroll 20px before target
+leap('.target', {offset: -20});
+```
+
+### `callback`
+Type: `function`<br>
+Default: `undefined`
+
+Leaper supports passing an optional callback function, which will be invoked after scroll completion
+
+```es6
+leap('.target', {
+  callback: () => console.log('done')
+});
+```
+
 
 ## Browser Support
 
